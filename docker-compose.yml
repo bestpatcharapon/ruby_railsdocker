@@ -5,7 +5,7 @@ services:
     image: postgres:15
     environment:
       POSTGRES_DB: bootcamp
-      POSTGRES_USER: ungkairt
+      POSTGRES_USER: patcharapon
       POSTGRES_PASSWORD: 1234
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -22,7 +22,7 @@ services:
       - "3000:3000"
     environment:
       RAILS_ENV: production
-      DATABASE_URL: "postgresql://ungkairt:1234@db:5432/bootcamp"
+      DATABASE_URL: "postgresql://patcharapon:1234@db:5432/bootcamp"
     volumes:
       - .:/rails
       - ./config/master.key:/rails/config/master.key:ro
