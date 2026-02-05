@@ -6,15 +6,16 @@
 }
 
 :root {
-  --color-bg: #E8E4DC;
-  --color-foreground: #3D3830;
-  --color-card: #F2F0EC;
-  --color-card-border: #D1CAC0;
-  --color-primary: #6B604F;
-  --color-primary-light: #FAF8F5;
-  --color-muted: #A29A8E;
+  --color-bg: #e8e4dc;
+  --color-foreground: #3d3830;
+  --color-card: #f2f0ec;
+  --color-card-border: #d1cac0;
+  --color-primary: #6b604f;
+  --color-primary-light: #faf8f5;
+  --color-muted: #a29a8e;
   --color-accent: #728559;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
@@ -128,27 +129,128 @@ body {
   }
 }
 
-/* Profile Image Container */
-.profile-image-container {
+/* Profile Stack Container */
+.profile-stack {
   position: relative;
-  aspect-ratio: 1;
-  max-width: 300px;
+  width: 280px;
+  height: 320px;
   margin: 0 auto;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 3px solid var(--color-card);
-  box-shadow: var(--shadow-sm);
+  perspective: 1000px;
 }
 
-.profile-image {
+.profile-card {
+  position: absolute;
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-card);
+  border: 3px solid var(--color-card-border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.profile-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Back card 2 - furthest back */
+.card-back-2 {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(-6deg) scale(0.9);
+  z-index: 1;
+  opacity: 0.6;
+}
+
+/* Back card 1 */
+.card-back-1 {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg) scale(0.95);
+  z-index: 2;
+  opacity: 0.8;
+}
+
+/* Main card - front */
+.card-main {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg) scale(1);
+  z-index: 3;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(var(--color-card), var(--color-card)) padding-box,
+    linear-gradient(
+        135deg,
+        var(--color-accent),
+        var(--color-primary),
+        var(--color-accent)
+      )
+      border-box;
+  box-shadow:
+    0 8px 25px rgba(114, 133, 89, 0.2),
+    0 0 30px rgba(114, 133, 89, 0.1);
+}
+
+/* Hover effects - spread cards */
+.profile-stack:hover .card-back-2 {
+  transform: translateX(calc(-50% - 40px)) rotate(-12deg) scale(0.88);
+  opacity: 0.9;
+}
+
+.profile-stack:hover .card-back-1 {
+  transform: translateX(calc(-50% + 40px)) rotate(8deg) scale(0.92);
+  opacity: 0.95;
+}
+
+.profile-stack:hover .card-main {
+  transform: translateX(-50%) translateY(-8px) rotate(0deg) scale(1.02);
+  box-shadow:
+    0 15px 35px rgba(114, 133, 89, 0.3),
+    0 0 40px rgba(114, 133, 89, 0.15);
+}
+
+.profile-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Click to swap effect - using :active */
+.profile-stack .card-back-1:active,
+.profile-stack .card-back-2:active {
+  z-index: 4;
+  transform: translateX(-50%) rotate(0deg) scale(1.05) !important;
+  opacity: 1;
+}
+
+/* Navigation dots */
+.stack-nav {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.stack-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-card-border);
+  cursor: pointer;
   transition: var(--transition);
 }
 
-.profile-image-container:hover .profile-image {
-  transform: scale(1.05);
+.stack-dot:hover,
+.stack-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.2);
 }
 
 /* Profile Overlay */
@@ -158,7 +260,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(61, 56, 48, 0.75) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(61, 56, 48, 0.75) 100%
+  );
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -316,7 +423,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #5A4F40;
+  background-color: #5a4f40;
 }
 
 .btn-outline {
@@ -468,13 +575,18 @@ body {
 }
 
 .skill-progress::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   animation: shimmer 2s infinite;
 }
 
@@ -594,13 +706,18 @@ body {
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 9px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-card-border) 50%, transparent 100%);
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent) 0%,
+    var(--color-card-border) 50%,
+    transparent 100%
+  );
 }
 
 .timeline-item {
@@ -628,16 +745,23 @@ body {
 .timeline-marker.active {
   border-color: var(--color-accent);
   background-color: var(--color-accent);
-  box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 8px rgba(114, 133, 89, 0.2);
+  box-shadow:
+    0 0 0 4px var(--color-bg),
+    0 0 0 8px rgba(114, 133, 89, 0.2);
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 8px rgba(114, 133, 89, 0.2);
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px var(--color-bg),
+      0 0 0 8px rgba(114, 133, 89, 0.2);
   }
   50% {
-    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 12px rgba(114, 133, 89, 0.1);
+    box-shadow:
+      0 0 0 4px var(--color-bg),
+      0 0 0 12px rgba(114, 133, 89, 0.1);
   }
 }
 
@@ -649,7 +773,7 @@ body {
 }
 
 .timeline-content::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -735,7 +859,8 @@ body {
 }
 
 @keyframes blink-cursor {
-  from, to {
+  from,
+  to {
     border-right-color: #5c6f3d;
   }
   50% {

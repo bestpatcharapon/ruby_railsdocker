@@ -1,0 +1,53 @@
+<div class="profile-info">
+  <div class="profile-header">
+    <h1 class="typing-name" id="typingName">Best Patcharapon</h1>
+    <p class="role">
+      <%= icon("sparkle", size: 20) %>
+      Software Developer | Software Testing
+    </p>
+    <p class="description">
+      Junior Software Developer & QA Tester with internship experience in full-stack development and software quality assurance. Skilled in building web applications using Ruby on Rails while ensuring product quality through manual and automated testing. Strong foundation in modern development practices and agile methodologies. Actively seeking opportunities to grow as a versatile developer who values both code quality and user experience.
+    </p>
+  </div>
+
+  <!-- Info Cards -->
+  <div class="info-grid">
+    <%= render "homepage/partials/info_card",
+        icon_name: "location",
+        title: "Location",
+        value: "Chiang Mai, TH" %>
+
+    <%= render "homepage/partials/info_card",
+        icon_name: "email",
+        title: "Email",
+        value: "Patcharaponyo65@gmail.com" %>
+
+    <%= render "homepage/partials/info_card",
+        icon_name: "cake",
+        title: "Birthday",
+        value: "December 4, 2003" %>
+
+    <%= render "homepage/partials/info_card",
+        icon_name: "graduation",
+        title: "Faculty",
+        value: "Computer Engineering" %>
+
+    <%= render "homepage/partials/info_card",
+        icon_name: "sparkle",
+        title: "Primary Tools",
+        value: "Ruby on Rails · Bruno · Cypress" %>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <%= link_to "https://github.com/bestpatcharapon", class: "btn btn-primary", target: "_blank", rel: "noopener noreferrer" do %>
+      <%= icon_filled("github", size: 20) %>
+      GitHub Profile
+    <% end %>
+
+    <%= link_to "/bestport.pdf", class: "btn btn-outline", download: true do %>
+      <%= icon("download", size: 20) %>
+      Download Resume
+    <% end %>
+  </div>
+</div>

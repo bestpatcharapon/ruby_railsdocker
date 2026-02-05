@@ -1,0 +1,65 @@
+<section class="skills-section" id="skills">
+  <div class="skills-grid">
+    <!-- Soft Skills -->
+    <div class="card">
+      <div class="card-header">
+        <%= icon("heart", size: 20, color: "#e74c3c") %>
+        Soft Skills
+      </div>
+      <div class="skills-grid-two-col">
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-lightbulb",
+            name: "Problem Solving",
+            percentage: 85 %>
+
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-comments",
+            name: "Communication",
+            percentage: 80 %>
+
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-users",
+            name: "Teamwork",
+            percentage: 90 %>
+
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-magnifying-glass",
+            name: "Attention to Detail",
+            percentage: 90 %>
+
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-brain",
+            name: "Analytical Thinking",
+            percentage: 85 %>
+
+        <%= render "homepage/partials/skill_item",
+            icon_class: "fa-solid fa-bug",
+            name: "Critical Thinking",
+            percentage: 88 %>
+      </div>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="card">
+      <div class="card-header">
+        <%= icon("terminal", size: 20, color: "#3498db") %>
+        Technical Skills
+      </div>
+      <div class="search-bar-container">
+        <%= icon("search", size: 18, class: "search-icon") %>
+        <%= tag.input type: "text",
+                      class: "search-input",
+                      placeholder: "Search technologies..." %>
+      </div>
+      <div class="tech-tags">
+        <% tech_skills.each do |skill| %>
+          <span class="tag"><%= skill %></span>
+        <% end %>
+      </div>
+      <p class="footer-note">
+        <%= icon("sparkle", size: 14) %>
+        Always learning new technologies
+      </p>
+    </div>
+  </div>
+</section>
